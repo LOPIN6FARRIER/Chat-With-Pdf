@@ -3,9 +3,9 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 v2.config({
-  cloud_name: "your_cloudinary_name_here",
-  api_key: "your_cloudinary_api_key_here",
-  api_secret: "your_cloudinary_api_secret_here"
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 const outputDir = path.join(process.cwd(), "public/text");
 const uploadStream = async (buffer, options) => {
