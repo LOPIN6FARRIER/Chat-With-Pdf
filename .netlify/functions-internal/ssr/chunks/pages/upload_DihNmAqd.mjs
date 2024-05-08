@@ -3,18 +3,24 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 v2.config({
-  cloud_name: "dniyqu7yq",
-  api_key: "628562391211963",
-  api_secret: "kXCkUa3uVGvnNY73OXWCsimvtjQ"
+  cloud_name: "",
+  api_key: "",
+  api_secret: ""
 });
 const outputDir = path.join(process.cwd(), "public/text");
 const uploadStream = async (buffer, options) => {
   return new Promise((resolve, reject) => {
-    v2.uploader.upload_stream(options, (error, result) => {
-      if (result)
-        return resolve(result);
-      reject(error);
-    }).end(buffer);
+    const uploadStream2 = v2.uploader.upload_stream(options, (error, result) => {
+      if (error) {
+        reject(error);
+      } else if (result) {
+        resolve(result);
+      } else {
+        reject(new Error("Unexpected upload response"));
+      }
+    });
+    uploadStream2.write(buffer);
+    uploadStream2.end();
   });
 };
 const POST = async ({ request }) => {

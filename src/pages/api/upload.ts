@@ -4,28 +4,34 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
                     
 cloudinary.config({ 
-    cloud_name: 'dniyqu7yq', 
-    api_key: '628562391211963', 
-    api_secret: 'kXCkUa3uVGvnNY73OXWCsimvtjQ' 
+    cloud_name: '', 
+    api_key: '', 
+    api_secret: '' 
 });
 
 const outputDir=path.join(process.cwd(),'public/text');
 
-const uploadStream= async(buffer:Uint8Array,options:{
-folder:string,
-ocr?:string,
-}): Promise<UploadApiResponse>=>{
-    return new Promise((resolve,reject)=>
-    {
-        cloudinary
-        .uploader
-        .upload_stream(options,(error,result)=>{
-            if(result)return resolve(result);
-            reject(error);
-        
-        }).end(buffer);
-    })
-}
+const uploadStream = async (buffer: Uint8Array, options: {
+    folder: string;
+    ocr?: string;
+  }): Promise<UploadApiResponse> => {
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(options, (error, result) => {
+        if (error) {
+          reject(error);
+        } else if (result) {
+          resolve(result);
+        } else {
+          // Handle unexpected cases where neither error nor result is present
+          reject(new Error('Unexpected upload response'));
+        }
+      });
+  
+      uploadStream.write(buffer);
+      uploadStream.end();
+    });
+  };
+  
 
 export const POST: APIRoute = async ({request}) => {
     const formData=await request.formData();
