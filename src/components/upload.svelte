@@ -43,8 +43,7 @@
   <Dropzone
     accept="application/pdf"
     multiple={false}
-    on:drop={handleFilesSelect}>Arrastra y suelta aquí tu PDF</Dropzone
-  >
+    on:drop={handleFilesSelect}>Arrastra y suelta aquí tu PDF</Dropzone>
 {/if}
 
 <ol>

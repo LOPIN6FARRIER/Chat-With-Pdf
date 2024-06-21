@@ -1,6 +1,6 @@
 import { isRemotePath } from '@astrojs/internal-helpers/path';
-import { A as AstroError, c as InvalidImageService, d as ExpectedImageOptions, E as ExpectedImage, F as FailedToFetchRemoteImageDimensions, e as createComponent, f as ImageMissingAlt, r as renderTemplate, m as maybeRenderHead, g as addAttribute, s as spreadAttributes, h as createAstro } from '../astro_CI08MVdk.mjs';
-import { r as resolveSrc, i as isRemoteImage, a as isESMImportedImage, b as isLocalService, D as DEFAULT_HASH_PROPS, c as isRemoteAllowed } from '../astro/assets-service_DKWaoNim.mjs';
+import { A as AstroError, c as InvalidImageService, d as ExpectedImageOptions, E as ExpectedImage, F as FailedToFetchRemoteImageDimensions, e as createComponent, f as ImageMissingAlt, r as renderTemplate, m as maybeRenderHead, g as addAttribute, s as spreadAttributes, h as createAstro } from '../astro_CscJdlj8.mjs';
+import { r as resolveSrc, i as isRemoteImage, a as isESMImportedImage, b as isLocalService, D as DEFAULT_HASH_PROPS, c as isRemoteAllowed } from '../astro/assets-service_CTfWLuCa.mjs';
 import 'html-escaper';
 import 'clsx';
 import * as mime from 'mrmime';
@@ -31,11 +31,9 @@ function readUInt(input, bits, offset, isBigEndian) {
   return methods[methodName](input, offset);
 }
 function readBox(buffer, offset) {
-  if (buffer.length - offset < 4)
-    return;
+  if (buffer.length - offset < 4) return;
   const boxSize = readUInt32BE(buffer, offset);
-  if (buffer.length - offset < boxSize)
-    return;
+  if (buffer.length - offset < boxSize) return;
   return {
     name: toUTF8String(buffer, 4 + offset, 8 + offset),
     offset,
@@ -45,10 +43,8 @@ function readBox(buffer, offset) {
 function findBox(buffer, boxName, offset) {
   while (offset < buffer.length) {
     const box = readBox(buffer, offset);
-    if (!box)
-      break;
-    if (box.name === boxName)
-      return box;
+    if (!box) break;
+    if (box.name === boxName) return box;
     offset += box.size;
   }
 }
@@ -79,16 +75,14 @@ const ICO = {
   validate(input) {
     const reserved = readUInt16LE(input, 0);
     const imageCount = readUInt16LE(input, 4);
-    if (reserved !== 0 || imageCount === 0)
-      return false;
+    if (reserved !== 0 || imageCount === 0) return false;
     const imageType = readUInt16LE(input, 2);
     return imageType === TYPE_ICON;
   },
   calculate(input) {
     const nbImages = readUInt16LE(input, 4);
     const imageSize = getImageSize$1(input, 0);
-    if (nbImages === 1)
-      return imageSize;
+    if (nbImages === 1) return imageSize;
     const imgs = [imageSize];
     for (let imageIndex = 1; imageIndex < nbImages; imageIndex += 1) {
       imgs.push(getImageSize$1(input, imageIndex));
@@ -106,8 +100,7 @@ const CUR = {
   validate(input) {
     const reserved = readUInt16LE(input, 0);
     const imageCount = readUInt16LE(input, 4);
-    if (reserved !== 0 || imageCount === 0)
-      return false;
+    if (reserved !== 0 || imageCount === 0) return false;
     const imageType = readUInt16LE(input, 2);
     return imageType === TYPE_CURSOR;
   },
@@ -246,8 +239,7 @@ const ICNS = {
     let imageHeader = readImageHeader(input, imageOffset);
     let imageSize = getImageSize(imageHeader[0]);
     imageOffset += imageHeader[1];
-    if (imageOffset === fileLength)
-      return imageSize;
+    if (imageOffset === fileLength) return imageSize;
     const result = {
       height: imageSize.height,
       images: [imageSize],
@@ -274,11 +266,9 @@ const J2C = {
 
 const JP2 = {
   validate(input) {
-    if (readUInt32BE(input, 4) !== 1783636e3 || readUInt32BE(input, 0) < 1)
-      return false;
+    if (readUInt32BE(input, 4) !== 1783636e3 || readUInt32BE(input, 0) < 1) return false;
     const ftypBox = findBox(input, "ftyp", 0);
-    if (!ftypBox)
-      return false;
+    if (!ftypBox) return false;
     return readUInt32BE(input, ftypBox.offset + 4) === 1718909296;
   },
   calculate(input) {
@@ -794,8 +784,7 @@ async function probe(url) {
   while (!done) {
     const readResult = await reader.read();
     done = readResult.done;
-    if (done)
-      break;
+    if (done) break;
     if (readResult.value) {
       value = readResult.value;
       let tmp = new Uint8Array(accumulatedChunks.length + value.length);
@@ -819,14 +808,13 @@ async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      '../astro/assets-service_DKWaoNim.mjs'
+      '../astro/assets-service_CTfWLuCa.mjs'
     ).then(n => n.s).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;
       throw error;
     });
-    if (!globalThis.astroAsset)
-      globalThis.astroAsset = {};
+    if (!globalThis.astroAsset) globalThis.astroAsset = {};
     globalThis.astroAsset.imageService = service;
     return service;
   }
@@ -930,7 +918,7 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
     additionalAttributes.srcset = image.srcSet.attribute;
   }
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(additionalAttributes)}${spreadAttributes(image.attributes)}>`;
-}, "C:/Users/vinic/OneDrive/Escritorio/proyectos/chat-with-pdf/node_modules/astro/components/Image.astro", void 0);
+}, "D:/proyectos/chat-with-pdf/node_modules/astro/components/Image.astro", void 0);
 
 const $$Astro = createAstro();
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
@@ -942,6 +930,19 @@ const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
   const { formats = defaultFormats, pictureAttributes = {}, fallbackFormat, ...props } = Astro2.props;
   if (props.alt === void 0 || props.alt === null) {
     throw new AstroError(ImageMissingAlt);
+  }
+  const scopedStyleClass = props.class?.match(/\bastro-\w{8}\b/)?.[0];
+  if (scopedStyleClass) {
+    if (pictureAttributes.class) {
+      pictureAttributes.class = `${pictureAttributes.class} ${scopedStyleClass}`;
+    } else {
+      pictureAttributes.class = scopedStyleClass;
+    }
+  }
+  for (const key in props) {
+    if (key.startsWith("data-astro-cid")) {
+      pictureAttributes[key] = props[key];
+    }
   }
   const originalSrc = await resolveSrc(props.src);
   const optimizedImages = await Promise.all(
@@ -977,7 +978,7 @@ const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
     const srcsetAttribute = props.densities || !props.densities && !props.widths ? `${image.src}${image.srcSet.values.length > 0 ? ", " + image.srcSet.attribute : ""}` : image.srcSet.attribute;
     return renderTemplate`<source${addAttribute(srcsetAttribute, "srcset")}${addAttribute("image/" + image.options.format, "type")}${spreadAttributes(sourceAdditionalAttributes)}>`;
   })} <img${addAttribute(fallbackImage.src, "src")}${spreadAttributes(imgAdditionalAttributes)}${spreadAttributes(fallbackImage.attributes)}> </picture>`;
-}, "C:/Users/vinic/OneDrive/Escritorio/proyectos/chat-with-pdf/node_modules/astro/components/Picture.astro", void 0);
+}, "D:/proyectos/chat-with-pdf/node_modules/astro/components/Picture.astro", void 0);
 
 const imageConfig = {"service":{"entrypoint":"astro/assets/services/sharp","config":{}},"domains":[],"remotePatterns":[]};
 					const getImage = async (options) => await getImage$1(options, imageConfig);

@@ -1,5 +1,5 @@
 import { isRemotePath, joinPaths } from '@astrojs/internal-helpers/path';
-import { A as AstroError, E as ExpectedImage, L as LocalImageUsedWrongly, M as MissingImageDimension, U as UnsupportedImageFormat, I as IncompatibleDescriptorOptions, a as UnsupportedImageConversion, b as MissingSharp } from '../astro_CI08MVdk.mjs';
+import { A as AstroError, E as ExpectedImage, L as LocalImageUsedWrongly, M as MissingImageDimension, U as UnsupportedImageFormat, I as IncompatibleDescriptorOptions, a as UnsupportedImageConversion, b as MissingSharp } from '../astro_CscJdlj8.mjs';
 
 const VALID_SUPPORTED_FORMATS = [
   "jpeg",
@@ -67,8 +67,7 @@ function isRemoteAllowed(src, {
   domains = [],
   remotePatterns = []
 }) {
-  if (!isRemotePath(src))
-    return false;
+  if (!isRemotePath(src)) return false;
   const url = new URL(src);
   return domains.some((domain) => matchHostname(url, domain)) || remotePatterns.some((remotePattern) => matchPattern(url, remotePattern));
 }
@@ -301,11 +300,9 @@ const sharpService = {
   getHTMLAttributes: baseService.getHTMLAttributes,
   getSrcSet: baseService.getSrcSet,
   async transform(inputBuffer, transformOptions, config) {
-    if (!sharp)
-      sharp = await loadSharp();
+    if (!sharp) sharp = await loadSharp();
     const transform = transformOptions;
-    if (transform.format === "svg")
-      return { data: inputBuffer, format: "svg" };
+    if (transform.format === "svg") return { data: inputBuffer, format: "svg" };
     const result = sharp(inputBuffer, {
       failOnError: false,
       pages: -1,

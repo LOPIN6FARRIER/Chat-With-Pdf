@@ -27,7 +27,7 @@ const responseSSE = ({ request }, callback) => {
 };
 
 const openai = new OpenAI({
-  apiKey: "Your_apik_key_here"
+  apiKey: process.env.OPENAI_API_KEY
 });
 const GET = async ({ request }) => {
   const url = new URL(request.url);
