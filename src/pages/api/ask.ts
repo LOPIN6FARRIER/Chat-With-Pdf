@@ -5,7 +5,7 @@ import { responseSSE } from '../../utils/sse'
 import OpenAI from 'openai'
 
 const openai = new OpenAI({
-  apiKey: 'sk-proj-nOywycaZYSxwIOdZ7Hz8T3BlbkFJMBjrEKXXClYGnKlXCusM'
+  apiKey: ''
 })
 
 export const GET: APIRoute = async ({ request }) => {
