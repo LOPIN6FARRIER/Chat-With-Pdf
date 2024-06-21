@@ -4,9 +4,9 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
                     
 cloudinary.config({ 
-    cloud_name: 'dniyqu7yq', 
-    api_key: '628562391211963', 
-    api_secret: 'kXCkUa3uVGvnNY73OXWCsimvtjQ' 
+    cloud_name: '', 
+    api_key: '', 
+    api_secret: '' 
 });
 
 const outputDir=path.join(process.cwd(),'public/text');
